@@ -1,0 +1,835 @@
+{
+	"info": {
+		"_postman_id": "e2b59236-cd7a-461d-b4b5-3eb2d0592ea9",
+		"name": "Pet Activity Tracker API",
+		"description": "Complete API collection for Pet Activity Tracker - Node.js + Express.js backend\n\n| Endpoint | Method | Purpose |\n| --- | --- | --- |\n| `/api/health` | GET | Server status |\n| `/api/activities` | GET | Get all activities |\n| `/api/activities` | POST | Log new activity |\n| `/api/activities/:id` | DELETE | Delete activity |\n| `/api/summary` | GET | Today's summary |\n| `/api/reminder` | GET | Check walk reminder |\n| `/api/chat` | POST | Send chat message |\n| `/api/chat` | GET | Get chat history |",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23529282"
+	},
+	"item": [
+		{
+			"name": "Health Check",
+			"item": [
+				{
+					"name": "Get API Health Status",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/health",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"health"
+							]
+						},
+						"description": "Check if API is running and get basic stats"
+					},
+					"response": [
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/health",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"health"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{\n  \"success\": true,\n  \"message\": \"Pet Activity Tracker API is running\",\n  \"timestamp\": \"2025-08-21T10:30:00.000Z\",\n  \"stats\": {\n    \"totalActivities\": 5,\n    \"chatMessages\": 10,\n    \"currentPet\": \"Max\"\n  }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Activities",
+			"item": [
+				{
+					"name": "Get All Activities",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/activities",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"activities"
+							]
+						},
+						"description": "Retrieve all logged activities and current pet info"
+					},
+					"response": [
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/activities",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"activities"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{\n  \"success\": true,\n  \"data\": {\n    \"activities\": [\n      {\n        \"id\": 1692610800000,\n        \"petName\": \"Max\",\n        \"type\": \"walk\",\n        \"duration\": 30,\n        \"dateTime\": \"2025-08-21T08:00:00.000Z\",\n        \"createdAt\": \"2025-08-21T08:00:00.000Z\"\n      }\n    ],\n    \"currentPet\": \"Max\"\n  }\n}"
+						}
+					]
+				},
+				{
+					"name": "Log Walk Activity",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"petName\": \"Max\",\n  \"activityType\": \"walk\",\n  \"duration\": 45,\n  \"dateTime\": \"2025-08-21T09:00:00.000Z\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/activities",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"activities"
+							]
+						},
+						"description": "Log a new walk activity for a pet"
+					},
+					"response": [
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"petName\": \"Max\",\n  \"activityType\": \"walk\",\n  \"duration\": 45,\n  \"dateTime\": \"2025-08-21T09:00:00.000Z\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/activities",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"activities"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": 1692614400000,\n    \"petName\": \"Max\",\n    \"type\": \"walk\",\n    \"duration\": 45,\n    \"dateTime\": \"2025-08-21T09:00:00.000Z\",\n    \"createdAt\": \"2025-08-21T09:00:00.000Z\"\n  },\n  \"message\": \"Activity logged successfully\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Log Meal Activity",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"petName\": \"Bella\",\n  \"activityType\": \"meal\",\n  \"duration\": 1,\n  \"dateTime\": \"2025-08-21T12:00:00.000Z\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/activities",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"activities"
+							]
+						},
+						"description": "Log a meal activity (duration = quantity)"
+					},
+					"response": []
+				},
+				{
+					"name": "Log Medication Activity",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"petName\": \"Charlie\",\n  \"activityType\": \"medication\",\n  \"duration\": 0.5,\n  \"dateTime\": \"2025-08-21T18:00:00.000Z\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/activities",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"activities"
+							]
+						},
+						"description": "Log medication activity (duration = dosage)"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Activity",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/activities/1692610800000",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"activities",
+								"1692610800000"
+							]
+						},
+						"description": "Delete a specific activity by ID"
+					},
+					"response": [
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/activities/1692610800000",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"activities",
+										"1692610800000"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": 1692610800000,\n    \"petName\": \"Max\",\n    \"type\": \"walk\",\n    \"duration\": 30,\n    \"dateTime\": \"2025-08-21T08:00:00.000Z\",\n    \"createdAt\": \"2025-08-21T08:00:00.000Z\"\n  },\n  \"message\": \"Activity deleted successfully\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Summary & Analytics",
+			"item": [
+				{
+					"name": "Get Today's Summary",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/summary",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"summary"
+							]
+						},
+						"description": "Get summarized data for today's activities"
+					},
+					"response": [
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/summary",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"summary"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{\n  \"success\": true,\n  \"data\": {\n    \"walks\": 75,\n    \"meals\": 2,\n    \"medications\": 1,\n    \"totalActivities\": 4\n  }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Reminders",
+			"item": [
+				{
+					"name": "Check Walk Reminder",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/reminder",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"reminder"
+							]
+						},
+						"description": "Check if walk reminder should be displayed (after 6 PM)"
+					},
+					"response": [
+						{
+							"name": "Show Reminder",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/reminder",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"reminder"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{\n  \"success\": true,\n  \"data\": {\n    \"showReminder\": true,\n    \"message\": \"Max still needs exercise today!\",\n    \"currentTime\": \"2025-08-21T18:30:00.000Z\"\n  }\n}"
+						},
+						{
+							"name": "No Reminder Needed",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/reminder",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"reminder"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{\n  \"success\": true,\n  \"data\": {\n    \"showReminder\": false,\n    \"message\": \"\",\n    \"currentTime\": \"2025-08-21T18:30:00.000Z\"\n  }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "AI Chat Assistant",
+			"item": [
+				{
+					"name": "Send Chat Message",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"message\": \"How is my pet doing today?\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/chat",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"chat"
+							]
+						},
+						"description": "Send a message to the AI chat assistant"
+					},
+					"response": [
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"message\": \"How is my pet doing today?\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/chat",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"chat"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{\n  \"success\": true,\n  \"data\": {\n    \"userMessage\": {\n      \"id\": 1692618000000,\n      \"type\": \"user\",\n      \"text\": \"How is my pet doing today?\",\n      \"timestamp\": \"2025-08-21T10:00:00.000Z\"\n    },\n    \"aiMessage\": {\n      \"id\": 1692618000001,\n      \"type\": \"ai\",\n      \"text\": \"Based on today's activities, Max seems to be doing well! They got some exercise, had 2 meals, and took their medication. Regular activity tracking helps ensure their wellbeing!\",\n      \"timestamp\": \"2025-08-21T10:00:00.000Z\"\n    }\n  }\n}"
+						}
+					]
+				},
+				{
+					"name": "Ask About Walks",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"message\": \"Does my pet need more exercise today?\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/chat",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"chat"
+							]
+						},
+						"description": "Ask AI about exercise needs"
+					},
+					"response": []
+				},
+				{
+					"name": "Ask for Pet Care Tips",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"message\": \"Give me some pet care tips\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/chat",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"chat"
+							]
+						},
+						"description": "Request general pet care advice"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Chat History",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/chat",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"chat"
+							]
+						},
+						"description": "Retrieve complete chat conversation history"
+					},
+					"response": [
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/chat",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"chat"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{\n  \"success\": true,\n  \"data\": [\n    {\n      \"id\": 1692618000000,\n      \"type\": \"user\",\n      \"text\": \"How is my pet doing today?\",\n      \"timestamp\": \"2025-08-21T10:00:00.000Z\"\n    },\n    {\n      \"id\": 1692618000001,\n      \"type\": \"ai\",\n      \"text\": \"Based on today's activities, Max seems to be doing well!\",\n      \"timestamp\": \"2025-08-21T10:00:00.000Z\"\n    }\n  ]\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Error Scenarios",
+			"item": [
+				{
+					"name": "Invalid Activity Type",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"petName\": \"Max\",\n  \"activityType\": \"invalid_type\",\n  \"duration\": 30,\n  \"dateTime\": \"2025-08-21T09:00:00.000Z\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/activities",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"activities"
+							]
+						},
+						"description": "Test validation with invalid activity type"
+					},
+					"response": [
+						{
+							"name": "Error Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"petName\": \"Max\",\n  \"activityType\": \"invalid_type\",\n  \"duration\": 30,\n  \"dateTime\": \"2025-08-21T09:00:00.000Z\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/activities",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"activities"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{\n  \"success\": false,\n  \"error\": \"Invalid activity type\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Missing Pet Name",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"activityType\": \"walk\",\n  \"duration\": 30,\n  \"dateTime\": \"2025-08-21T09:00:00.000Z\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/activities",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"activities"
+							]
+						},
+						"description": "Test validation with missing pet name"
+					},
+					"response": [
+						{
+							"name": "Error Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"activityType\": \"walk\",\n  \"duration\": 30,\n  \"dateTime\": \"2025-08-21T09:00:00.000Z\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/activities",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"activities"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{\n  \"success\": false,\n  \"error\": \"Pet name is required\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Activity Not Found",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/activities/999999999999",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"activities",
+								"999999999999"
+							]
+						},
+						"description": "Test deleting non-existent activity"
+					},
+					"response": [
+						{
+							"name": "Error Response",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/activities/999999999999",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"activities",
+										"999999999999"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{\n  \"success\": false,\n  \"error\": \"Activity not found\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Invalid Endpoint",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/nonexistent",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"nonexistent"
+							]
+						},
+						"description": "Test 404 error for invalid endpoint"
+					},
+					"response": [
+						{
+							"name": "Error Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/nonexistent",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"nonexistent"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{\n  \"success\": false,\n  \"error\": \"API endpoint not found\"\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// Set dynamic timestamp for activities",
+					"pm.globals.set('timestamp', new Date().toISOString());"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// Basic response validation",
+					"pm.test('Status code is successful', function () {",
+					"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+					"});",
+					"",
+					"pm.test('Response has success field', function () {",
+					"    const jsonData = pm.response.json();",
+					"    pm.expect(jsonData).to.have.property('success');",
+					"});",
+					"",
+					"pm.test('Response time is acceptable', function () {",
+					"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+					"});"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:5000",
+			"type": "string",
+			"description": "Base URL for local development"
+		},
+		{
+			"key": "prodUrl",
+			"value": "https://your-app.onrender.com",
+			"type": "string",
+			"description": "Production URL on Render"
+		}
+	]
+}
