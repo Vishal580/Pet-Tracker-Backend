@@ -329,9 +329,7 @@ app.use('*', (req, res) => {
 
 // Start server
 app.listen(PORT, () => {
-  console.log(`🐾 Pet Activity Tracker API running on port ${PORT}`);
-  console.log(`📊 Health check: http://localhost:${PORT}/api/health`);
-  console.log(`💾 Using in-memory storage (no database)`);
+  console.log(`Pet Activity Tracker API running on port ${PORT}`);
 });
 
 module.exports = app;
